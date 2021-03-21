@@ -3,6 +3,9 @@ from mesa.time import RandomActivation
 from mesa.space import SingleGrid
 from mesa.datacollection import DataCollector
 import random
+from mesa.visualization.ModularVisualization import ModularServer
+from mesa.visualization.modules import CanvasGrid, ChartModule, TextElement
+from mesa.visualization.UserParam import UserSettableParameter
 
 class CovAgent(Agent):
 
@@ -15,18 +18,20 @@ class CovAgent(Agent):
         self.immune = immune
         self.prob_inf = prob_inf
         self.temps_inf = temps_inf
+        self.deb_inf=0
 
     def step(self):
         self.sucep2infect()
         self.infect2retab()
         if self.type== 1:
             self.model.infecte+=1
-            self.model.grid.move_to_empty(self)
         if self.type== 0:
-            self.model.grid.move_to_empty(self)
             self.model.sucep+=1
         if self.type== -1:
             self.model.retab+=1
+        if not self.model.confinement:
+            self.model.grid.move_to_empty(self)
+
 
 
 
@@ -44,19 +49,19 @@ class CovAgent(Agent):
                     if prob_inff>neighbor.immune:
                         neighbor.type=1
                         neighbor.immune=None
+                        neighbor.deb_inf=self.model.runs
                         neighbor.prob_inf=random.uniform(0,1)
                         neighbor.temps_inf=random.randint(5,15)
     def infect2retab(self):
         if self.type==1:
-            if self.model.runs>self.temps_inf:
+            temp=(self.model.runs-self.deb_inf)
+            if temp>self.temps_inf:
                 self.type=-1
-                self.immune=1
-
 
 
 class CovModel(Model):
 
-    def __init__(self, height=5, width=5, density=0.8, minority_pc=0.2,d_pm=0.8):
+    def __init__(self, height=5, width=5, density=0.8, minority_pc=0.2,d_pm=0.8,confinement=False):
         self.height = height
         self.width = width
         self.density = density
@@ -64,6 +69,7 @@ class CovModel(Model):
         self.d_pm = d_pm
         self.schedule = RandomActivation(self)
         self.grid = SingleGrid(width, height, torus=True)
+        self.confinement=confinement
         self.infecte = 0
         self.sucep=0
         self.retab=0
