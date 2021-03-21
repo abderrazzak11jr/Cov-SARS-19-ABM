@@ -24,40 +24,40 @@ def cov_draw(agent):
 
     return portrayal
 
-
 class Infecte(TextElement):
     def __init__(self):
         pass
 
     def render(self, model):
-        return "agents infectes: " + str(model.infecte)
+        return "infected agents : " + str(model.infecte)
 
 class Suceptible(TextElement):
     def __init__(self):
         pass
 
     def render(self, model):
-        return "agents suceptibles: " + str(model.sucep)
+        return "susceptible agents : " + str(model.sucep)
 
 class Retabli(TextElement):
     def __init__(self):
         pass
 
     def render(self, model):
-        return "agents retablis: " + str(model.retab)
+        return "recovered agents : " + str(model.retab)
 
 canvas_element = CanvasGrid(cov_draw, 20, 20, 500, 500)
 infecte_element=Infecte()
 sucep_element=Suceptible()
 retab_element=Retabli()
-all_chart = ChartModule([{"Label": "infecte", "Color": "red"},{"Label": "suceptible", "Color": "yellow"},{"Label": "retabli", "Color": "green"}], data_collector_name='datacollector')
+all_chart = ChartModule([{"Label": "infected", "Color": "red"},{"Label": "susceptible", "Color": "yellow"},{"Label": "recovered", "Color": "green"}], data_collector_name='datacollector')
 model_params = {
                         "height": 20,
                         "width": 20,
-                        "density": UserSettableParameter("slider", "Agent density", 0.8, 0.1, 1.0, 0.1),
+                        "density": UserSettableParameter("slider", "Agent density", 0.75, 0.1, 1.0, 0.1),
                         "minority_pc": UserSettableParameter(
-                            "slider", "Fraction des infectes", 0.2, 0.00, 1.0, 0.05),
-                        "d_pm": UserSettableParameter("slider", "Fraction des porteurs du mask", 0.8, 0.1, 1.0, 0.1),
+                            "slider", "Infected Fraction", 0.25, 0.00, 1.0, 0.05),
+                        "d_pm": UserSettableParameter("slider", "Mask Wearers Fraction", 0.25, 0.1, 1.0, 0.05),
+                        "confinement": UserSettableParameter('checkbox', 'Apply Quarantine', value=False),
 }
 server = ModularServer(CovModel,
                        [canvas_element, infecte_element,sucep_element,retab_element,all_chart],
