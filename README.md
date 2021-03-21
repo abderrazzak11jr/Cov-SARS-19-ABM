@@ -13,19 +13,16 @@ The model consists of agents on a square grid, where each grid cell can contain 
 <br>
   The infected agents become recovered after a certain number of model runs (5 to 15), average days to get recovered from the virus. if the quarantine option is not applied all types of agents can move freely inside the grid.The model keeps running until all agents get recovered.
   
-<br>
+<\br>
 ## Files
 
 <br>
   run.py: Launches a model visualization server.
-  
 <br>
 <br>
   model.py: Contains the agent class, and the overall model class.
-  
 <br>
 
 <br>
   server.py: Defines classes for visualizing the model in the browser via Mesa's modular server, and instantiates a visualization server.
-
 <br>
