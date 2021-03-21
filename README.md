@@ -15,8 +15,7 @@ The model consists of agents on a square grid, where each grid cell can contain 
 
 ## Files
 
-<br>
-  run.py: Launches a model visualization server.
-  model.py: Contains the agent class, and the overall model class.
-  server.py: Defines classes for visualizing the model in the browser via Mesa's modular server, and instantiates a visualization server.
-<br>
+<br> run.py: Launches a model visualization server.<br>
+<br> model.py: Contains the agent class, and the overall model class.<br>
+<br> server.py: Defines classes for visualizing the model in the browser via Mesa's modular server, and instantiates a visualization server.<br>
+
