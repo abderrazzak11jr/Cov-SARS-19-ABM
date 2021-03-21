@@ -49,7 +49,7 @@ canvas_element = CanvasGrid(cov_draw, 20, 20, 500, 500)
 infecte_element=Infecte()
 sucep_element=Suceptible()
 retab_element=Retabli()
-all_chart = ChartModule([{"Label": "infected", "Color": "red"},{"Label": "susceptible", "Color": "yellow"},{"Label": "recovered", "Color": "green"}], data_collector_name='datacollector')
+all_chart = ChartModule([{"Label": "infecte", "Color": "red"},{"Label": "suceptible", "Color": "yellow"},{"Label": "retabli", "Color": "green"}], data_collector_name='datacollector')
 model_params = {
                         "height": 20,
                         "width": 20,
